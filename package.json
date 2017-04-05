@@ -21,7 +21,8 @@
         "node-red-dashboard":"2.x",
         "node-red-contrib-web-worldmap":"1.x",
         "node-red-node-random":"0.x",
-        "node-red-contrib-counter":"0.x"
+        "node-red-contrib-counter":"0.x",
+        "node-red-node-data-generator":"0.x"
     },
     "scripts": {
         "start": "node --max-old-space-size=384 node_modules/node-red/red.js --settings ./bluemix-settings.js -v"

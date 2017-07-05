@@ -2,7 +2,6 @@ applications:
 - path: .
   memory: 768M
   instances: 1
-  domain: mybluemix.net
   name: simulated-cars
   disk_quota: 1024M  
   services:

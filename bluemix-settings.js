@@ -82,7 +82,7 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
 settings.couchAppname = VCAP_APPLICATION['application_name'];
 
 
-var storageServiceName = process.env.NODE_RED_STORAGE_NAME || new RegExp("^"+settings.couchAppname+".cloudantNoSQLDB");
+var storageServiceName = process.env.NODE_RED_STORAGE_NAME || VCAP_SERVICES.cloudantNoSQLDB[0].name;
 var couchService = appEnv.getService(storageServiceName);
 
 if (!couchService) {

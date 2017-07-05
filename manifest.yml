@@ -4,14 +4,14 @@ applications:
   instances: 1
   domain: mybluemix.net
   name: simulated-cars
-  disk_quota: 1024M
+  disk_quota: 1024M  
   services:
   - simulated-cars-cloudantNoSQLDB
   - simulated-cars-iotf
-  declared-services:
-    simulated-cars-cloudantNoSQLDB:
-      label: cloudantNoSQLDB
-      plan: Lite
-    simulated-cars-iotf:
-      label: iotf-service
-      plan: iotf-service-free
+declared-services:
+  simulated-cars-cloudantNoSQLDB:
+    label: cloudantNoSQLDB
+    plan: Lite
+  simulated-cars-iotf:
+    label: iotf-service
+    plan: iotf-service-free

@@ -51,9 +51,7 @@ var settings = module.exports = {
     // Serve up the welcome page
     httpStatic: path.join(__dirname,"public"),
 
-    functionGlobalContext: {
-    	VCAP_SERVICES: VCAP_SERVICES
-    },
+    functionGlobalContext: {},
 
     storageModule: require("./couchstorage")
 }
@@ -94,4 +92,12 @@ if (!couchService) {
 }    
 settings.couchUrl = couchService.credentials.url;
 
+
+var mapinsightsCreds = VCAP_SERVICES.mapinsights[0].credentials;
+var weatherinsightsCreds = VCAP_SERVICES.weatherinsights[0].credentials;
+
+settings.functionGlobalContext.svcHashes = {
+	mapinsights: btoa(mapinsightsCreds.username + ':' + mapinsightsCreds.password),
+	weatherinsights: btoa(weatherinsightsCreds.username + ':' + weatherinsightsCreds.password)
+}
 

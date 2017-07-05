@@ -96,8 +96,16 @@ settings.couchUrl = couchService.credentials.url;
 var mapinsightsCreds = VCAP_SERVICES.mapinsights[0].credentials;
 var weatherinsightsCreds = VCAP_SERVICES.weatherinsights[0].credentials;
 
-settings.functionGlobalContext.svcHashes = {
-	mapinsights: btoa(mapinsightsCreds.username + ':' + mapinsightsCreds.password),
-	weatherinsights: btoa(weatherinsightsCreds.username + ':' + weatherinsightsCreds.password)
+settings.functionGlobalContext.credentials = {
+	mapinsights: {
+		hash: btoa(mapinsightsCreds.username + ':' + mapinsightsCreds.password),
+		tenantId: mapinsightsCreds.tenant_id,
+		api: mapinsightsCreds.api
+	},
+	weatherinsights: {
+		hash: btoa(weatherinsightsCreds.username + ':' + weatherinsightsCreds.password),
+		host: weatherinsightsCreds.host,
+		port: weatherinsightsCreds.port
+	}
 }
 

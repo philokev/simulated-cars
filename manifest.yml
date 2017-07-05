@@ -8,6 +8,8 @@ applications:
   services:
   - simulated-cars-cloudantNoSQLDB
   - simulated-cars-iotf
+  - simulated-cars-wcd
+  - simulated-cars-cm
 declared-services:
   simulated-cars-cloudantNoSQLDB:
     label: cloudantNoSQLDB
@@ -15,3 +17,9 @@ declared-services:
   simulated-cars-iotf:
     label: iotf-service
     plan: iotf-service-free
+  simulated-cars-wcd:
+    label: weatherinsights
+    plan: Free-v2
+  simulated-cars-cm:
+    label: mapinsights
+    plan: free

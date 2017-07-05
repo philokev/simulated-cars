@@ -23,6 +23,10 @@ var appEnv = cfenv.getAppEnv();
 var VCAP_APPLICATION = JSON.parse(process.env.VCAP_APPLICATION);
 var VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES);
 
+var mapinsightsCreds = VCAP_SERVICES.mapinsights[0].credentials;
+var weatherinsightsCreds = VCAP_SERVICES.weatherinsights[0].credentials;
+
+
 var settings = module.exports = {
     uiPort: process.env.PORT || 1880,
     mqttReconnectTime: 15000,
@@ -51,7 +55,20 @@ var settings = module.exports = {
     // Serve up the welcome page
     httpStatic: path.join(__dirname,"public"),
 
-    functionGlobalContext: {},
+	functionGlobalContext: {
+		credentials: {
+			mapinsights: {
+				hash: btoa(mapinsightsCreds.username + ':' + mapinsightsCreds.password),
+				tenantId: mapinsightsCreds.tenant_id,
+				api: mapinsightsCreds.api
+			},
+			weatherinsights: {
+				hash: btoa(weatherinsightsCreds.username + ':' + weatherinsightsCreds.password),
+				host: weatherinsightsCreds.host,
+				port: weatherinsightsCreds.port
+			}
+		}
+	},
 
     storageModule: require("./couchstorage")
 }
@@ -91,21 +108,4 @@ if (!couchService) {
     throw new Error("No cloudant service found");
 }    
 settings.couchUrl = couchService.credentials.url;
-
-
-var mapinsightsCreds = VCAP_SERVICES.mapinsights[0].credentials;
-var weatherinsightsCreds = VCAP_SERVICES.weatherinsights[0].credentials;
-
-settings.functionGlobalContext.credentials = {
-	mapinsights: {
-		hash: btoa(mapinsightsCreds.username + ':' + mapinsightsCreds.password),
-		tenantId: mapinsightsCreds.tenant_id,
-		api: mapinsightsCreds.api
-	},
-	weatherinsights: {
-		hash: btoa(weatherinsightsCreds.username + ':' + weatherinsightsCreds.password),
-		host: weatherinsightsCreds.host,
-		port: weatherinsightsCreds.port
-	}
-}
 
